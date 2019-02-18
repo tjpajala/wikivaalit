@@ -1,0 +1,30 @@
+# base image
+FROM python:3
+
+
+#install packages
+
+# set working directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements_depend_numpy.txt /usr/src/app/requirements_depend_numpy.txt
+
+RUN pip install -r requirements.txt\
+    && pip install -r requirements_depend_numpy.txt
+
+RUN apt-get update \
+    && apt-get install -y netcat-openbsd
+
+# add entrypoint.sh
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+EXPOSE 8050
+
+# add app
+COPY . /usr/src/app
+
+# run server
+CMD ["/usr/src/app/entrypoint.sh"]

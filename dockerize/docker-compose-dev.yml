@@ -1,0 +1,43 @@
+version: '3.6'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './app:/usr/src/app'
+      - './data:/usr/src/data'
+    ports:
+      - 8050:8050
+    environment:
+#      - FLASK_ENV=development
+#      - APP_SETTINGS=project.config.DevelopmentConfig
+      - DATABASE_URL=mysql://wikiuser:mypass@db:3302/wikidump  # new
+#      - DATABASE_TEST=mysql+pymysql://wikiuser:mypass@db:3302/wikidump  # new
+    depends_on:  # new
+      - db
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile-db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+    - MYSQL_USER=wikiuser
+    - MYSQL_PASSWORD=mypass
+    - MYSQL_DATABASE=wikidump
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+# #TODO
+#  nginx:
+#    build:
+#      context: ./services/nginx
+#      dockerfile: Dockerfile-dev
+#    restart: always
+#    ports:
+#    - 80:80
+#    depends_on:
+#    - users
