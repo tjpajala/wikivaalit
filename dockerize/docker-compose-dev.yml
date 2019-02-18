@@ -16,6 +16,7 @@ services:
       - DATABASE_URL=mysql://wikiuser:mypass@db:3302/wikidump  # new
 #      - DATABASE_TEST=mysql+pymysql://wikiuser:mypass@db:3302/wikidump  # new
     depends_on:  # new
+      - data
       - db
 
   db:
@@ -30,6 +31,17 @@ services:
     - MYSQL_PASSWORD=mypass
     - MYSQL_DATABASE=wikidump
     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    depends_on:
+      - data
+
+  data:
+    build:
+      context: ./data
+      dockerfile: Dockerfile-data
+    volumes:
+      - './data:/usr/src/data'
+
+
 
 # #TODO
 #  nginx:

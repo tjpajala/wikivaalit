@@ -1,0 +1,29 @@
+# base image
+FROM python:3
+
+RUN apt-get update && apt-get install -y r-base
+
+RUN R -e "install.packages('readr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+#install packages
+
+# set working directory
+RUN mkdir -p /usr/src/data
+WORKDIR /usr/src/data
+
+COPY ./requirements.txt /usr/src/data/requirements.txt
+RUN pip install -r requirements.txt
+
+
+COPY ./get_data_files.py /usr/src/data/get_data_files.py
+COPY ./election_parser.R /usr/src/data/election_parser.R
+
+
+COPY ./data_load_trigger.sh /usr/src/data/data_load_trigger.sh
+RUN chmod +x /usr/src/data/data_load_trigger.sh
+
+#get data from URLS
+#CMD ["get_data_files.py"]
+
+#transform .csv to utf-8 with R when data is loaded
+CMD ["/usr/src/data/data_load_trigger.sh"]
