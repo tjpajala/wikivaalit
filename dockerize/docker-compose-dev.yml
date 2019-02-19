@@ -27,19 +27,21 @@ services:
     ports:
       - 3306:3306
     environment:
-    - MYSQL_USER=wikiuser
-    - MYSQL_PASSWORD=mypass
     - MYSQL_DATABASE=wikidump
     - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     depends_on:
       - data
+    volumes:
+#      - './db:/usr/src/db'
+      - './data:/usr/src/db/result'
 
   data:
     build:
       context: ./data
       dockerfile: Dockerfile-data
     volumes:
-      - './data:/usr/src/data'
+      - './data:/usr/src/result'
+#      - './data:/usr/src/data'
 
 
 

@@ -3,7 +3,7 @@
 echo "Waiting for mysql..."
 
 while ! nc -z db 3306; do
-  sleep 0.1
+  sleep 1s  
 done
 
 echo "mysql started"

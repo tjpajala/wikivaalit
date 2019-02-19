@@ -41,4 +41,4 @@ url_wiki = "https://dumps.wikimedia.org/fiwiki/20190101/fiwiki-20190101-pages-ar
 #local_wiki_name = "./fiwiki-20190101-pages-articles.xml.bz2"
 with tqdm(...) as t:
     reporthook = my_hook(t)
-    #urllib.request.urlretrieve(url_wiki, "fiwiki-20190101-pages-articles.xml.bz2", reporthook)
+    urllib.request.urlretrieve(url_wiki, "fiwiki-20190101-pages-articles.xml.bz2", reporthook)
