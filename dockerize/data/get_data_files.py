@@ -1,6 +1,7 @@
 from zipfile import ZipFile
 import urllib.request
 from tqdm import tqdm
+import os
 
 def my_hook(t):
     """Wraps tqdm instance.
@@ -29,16 +30,18 @@ def my_hook(t):
 #load yle data
 url = "https://vaalit.beta.yle.fi/avoindata/candidate_answer_data_kokomaa11042017.zip"
 local_zip_name = "./candidate_answer_data_kokomaa11042017.zip"
-with tqdm(...) as t:
-    reporthook = my_hook(t)
-    urllib.request.urlretrieve(url, "candidate_answer_data_kokomaa11042017.zip", reporthook)
-zip_ref = ZipFile(local_zip_name, 'r')
-zip_ref.extractall(".")
-zip_ref.close()
+if local_zip_name.split(".")[1][1:]+".csv" not in os.listdir():
+    with tqdm(...) as t:
+        reporthook = my_hook(t)
+        urllib.request.urlretrieve(url, "candidate_answer_data_kokomaa11042017.zip", reporthook)
+    zip_ref = ZipFile(local_zip_name, 'r')
+    zip_ref.extractall(".")
+    zip_ref.close()
 
 #load wikipedia data
 url_wiki = "https://dumps.wikimedia.org/fiwiki/20190101/fiwiki-20190101-pages-articles.xml.bz2"
 #local_wiki_name = "./fiwiki-20190101-pages-articles.xml.bz2"
-with tqdm(...) as t:
-    reporthook = my_hook(t)
-    urllib.request.urlretrieve(url_wiki, "fiwiki-20190101-pages-articles.xml.bz2", reporthook)
+if "fiwiki-20190101-pages-articles.xml.bz2" not in os.listdir():
+    with tqdm(...) as t:
+        reporthook = my_hook(t)
+        urllib.request.urlretrieve(url_wiki, "fiwiki-20190101-pages-articles.xml.bz2", reporthook)

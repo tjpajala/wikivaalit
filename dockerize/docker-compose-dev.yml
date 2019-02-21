@@ -1,6 +1,43 @@
 version: '3.6'
 
 services:
+
+  data:
+    build:
+      context: ./data
+      dockerfile: Dockerfile-data
+    volumes:
+      - './data:/usr/src/result'
+#      - './data:/usr/src/data'
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile-db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+    - MYSQL_DATABASE=wikidump
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+#    depends_on:
+#      - data
+    volumes:
+      - './db:/usr/src/db'
+      - './data:/usr/src/result'
+
+  lda:
+    build:
+      context: ./ldaModel
+      dockerfile: Dockerfile-lda
+    volumes:
+      - './data:/usr/src/data'
+      - './ldaModel:/usr/src/ldaModel'
+      - './saved_models:/usr/src/saved_models'
+    depends_on:
+      - data
+      - db
+
   app:
     build:
       context: ./app
@@ -18,32 +55,7 @@ services:
     depends_on:  # new
       - data
       - db
-
-  db:
-    build:
-      context: ./db
-      dockerfile: Dockerfile-db
-    restart: always
-    ports:
-      - 3306:3306
-    environment:
-    - MYSQL_DATABASE=wikidump
-    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    depends_on:
-      - data
-    volumes:
-#      - './db:/usr/src/db'
-      - './data:/usr/src/db/result'
-
-  data:
-    build:
-      context: ./data
-      dockerfile: Dockerfile-data
-    volumes:
-      - './data:/usr/src/result'
-#      - './data:/usr/src/data'
-
-
+      - lda
 
 # #TODO
 #  nginx:

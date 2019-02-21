@@ -17,3 +17,5 @@ Rscript election_parser.R
 mkdir result
 cp /usr/src/data/candidate_answers_utf8.csv /usr/src/result/candidate_answers_utf8.csv
 cp /usr/src/data/fiwiki-20190101-pages-articles.xml.bz2 /usr/src/result/fiwiki-20190101-pages-articles.xml.bz2
+
+echo "utf8 data generated"
