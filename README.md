@@ -1,4 +1,4 @@
-#Wikivaalit
+# Wikivaalit
 
 This package provides tools to pull Finnish Wikipedia articles, and YLE Kuntavaalit 2017
 data from the web, perform an LDA model on that corpus, and look at the closest matching
@@ -7,20 +7,20 @@ this project was more an exercise of learning NLP techniques and Docker orchestr
 
 Included Docker services:
 
-###data (runtime approx. 6 minutes)
+### data (runtime approx. 6 minutes)
 Pulls the Kuntavaalit and Finnish Wikipedia datasets, and does a little preprocessing on the 
 election data.
 
-###db (runtime approx. 5 minutes)
+### db (runtime approx. 5 minutes)
 Starts a MySQL server, searches for Wikipedia categories based on keywords, and outputs 
 a list of those selected categories.
 
-###ldaModel (runtime 10-60 minutes, depends on parameters)
+### ldaModel (runtime 10-60 minutes, depends on parameters)
 
 Takes in the raw data and selected Wikipedia categories, runs a LDA model on the corpus
 (with gensim), and produces a results file.
 
-###app
+### app
 
 Takes in the results file, and makes a Plotly Dash dashboard app with that.
 
@@ -28,7 +28,7 @@ All of the containers hence depend on the results of the previous container. The
 in the docker compose file, and can be run either in sequence or individually (because
 you probably don't want to wait for the download of 650MB of Wikipedia articles every time).
 
-##Getting started
+## Getting started
 
 Get all the files into your chosen directory with git:
 
