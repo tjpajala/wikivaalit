@@ -48,3 +48,7 @@ This runs that and all preceding containers. If you only want to run a certain c
 (without the previous ones), instead run with:
 
 `docker-compose -f docker-compose-dev.yml up --build --no-deps db`
+
+Parameters of the LDA model are specified in the `election_preprocessing.py`.
+
+The Dash app generated from the results is available at `localhost:8050`.
