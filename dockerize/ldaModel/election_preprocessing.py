@@ -20,7 +20,7 @@ n_topics = 15
 passes = 5
 n_test = 1000
 test_run = False
-load_previous_wiki_filtered = True
+load_previous_wiki_filtered = False
 load_previous_lda_model = False
 load_previous_similarity = False
 
@@ -138,7 +138,7 @@ def filter_selected_categories(xml_element, page_titles_in_correct_categories=pa
 
 
 if not load_previous_wiki_filtered:
-    wiki = gensim.corpora.WikiCorpus('fiwiki-20190101-pages-articles.xml.bz2', filter_articles=filter_selected_categories)
+    wiki = gensim.corpora.WikiCorpus(data_path+'/fiwiki-20190101-pages-articles.xml.bz2', filter_articles=filter_selected_categories)
     gensim.corpora.mmcorpus.MmCorpus.serialize(fname=data_path+"/orig_wiki/wiki_filtered.mm", corpus=wiki,
                                                metadata=True, progress_cnt=1000)
     wiki.dictionary.save_as_text(data_path+'/orig_wiki/wiki_filtered_wordids.txt.bz2')

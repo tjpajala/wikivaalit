@@ -9,3 +9,4 @@ INTO OUTFILE '/usr/src/result/categories.txt'
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n';
+SHUTDOWN;
