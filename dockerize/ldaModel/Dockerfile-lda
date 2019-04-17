@@ -1,18 +1,13 @@
 # base image
 FROM python:3
 
-
-#install packages
-
 # set working directory
 RUN mkdir -p /usr/src/ldaModel
 WORKDIR /usr/src/ldaModel
 
 COPY ./requirements.txt /usr/src/ldaModel/requirements.txt
-#COPY ./requirements_depend_numpy.txt /usr/src/ldaModel/requirements_depend_numpy.txt
 
 RUN pip install -r requirements.txt
-#    && pip install -r requirements_depend_numpy.txt
 
 RUN apt-get update \
     && apt-get install -y netcat-openbsd
@@ -20,8 +15,6 @@ RUN apt-get update \
 # add entrypoint.sh
 COPY ./lda_entrypoint.sh /usr/src/ldaModel/lda_entrypoint.sh
 RUN chmod +x /usr/src/ldaModel/lda_entrypoint.sh
-
-#EXPOSE 8050
 
 # add app
 COPY . /usr/src/ldaModel

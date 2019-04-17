@@ -22,8 +22,4 @@ COPY ./election_parser.R /usr/src/data/election_parser.R
 COPY ./data_load_trigger.sh /usr/src/data/data_load_trigger.sh
 RUN chmod +x /usr/src/data/data_load_trigger.sh
 
-#get data from URLS
-#CMD ["get_data_files.py"]
-
-#transform .csv to utf-8 with R when data is loaded
 CMD ["/usr/src/data/data_load_trigger.sh"]

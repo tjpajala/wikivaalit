@@ -1,7 +1,13 @@
-numpy==1.15.4
 Flask==1.0.2
 Flask-SQLAlchemy==2.3.2
 pymysql==0.8.1
 gunicorn==19.8.1
 coverage==4.5.1
 flake8===3.5.0
+scipy==1.1.0
+pandas==0.24.1
+gensim==3.7.1
+dash==0.36.0
+dash-core-components==0.43.0
+dash-html-components==0.13.5
+dash-renderer==0.17.0

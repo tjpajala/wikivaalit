@@ -8,7 +8,6 @@ services:
       dockerfile: Dockerfile-data
     volumes:
       - './data:/usr/src/result'
-#      - './data:/usr/src/data'
 
   db:
     build:
@@ -53,8 +52,6 @@ services:
       - DATABASE_URL=mysql://wikiuser:mypass@db:3302/wikidump  # new
 #      - DATABASE_TEST=mysql+pymysql://wikiuser:mypass@db:3302/wikidump  # new
     depends_on:  # new
-      - data
-      - db
       - lda
 
 # #TODO

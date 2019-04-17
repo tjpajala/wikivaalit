@@ -9,10 +9,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./requirements.txt /usr/src/app/requirements.txt
-COPY ./requirements_depend_numpy.txt /usr/src/app/requirements_depend_numpy.txt
 
-RUN pip install -r requirements.txt\
-    && pip install -r requirements_depend_numpy.txt
+RUN pip install -r requirements.txt
 
 RUN apt-get update \
     && apt-get install -y netcat-openbsd

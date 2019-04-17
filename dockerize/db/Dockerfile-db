@@ -5,7 +5,7 @@ FROM mysql:8.0
 # set working directory
 WORKDIR /usr/src/db
 
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget netcat python3-dev python3-pip python3-setuptools
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates wget netcat python3-pip python3-setuptools
 RUN wget "https://dumps.wikimedia.org/fiwiki/20190101/fiwiki-20190101-category.sql.gz" -O /usr/src/db/fiwiki-20190101-category.sql.gz
 RUN wget "https://dumps.wikimedia.org/fiwiki/20190101/fiwiki-20190101-page.sql.gz" -O /usr/src/db/fiwiki-20190101-page.sql.gz
 RUN wget "https://dumps.wikimedia.org/fiwiki/20190101/fiwiki-20190101-categorylinks.sql.gz" -O /usr/src/db/fiwiki-20190101-categorylinks.sql.gz
@@ -27,19 +27,13 @@ RUN pip3 install -r requirements.txt
 RUN mkdir /usr/src/result
 RUN chmod +rwx /usr/src/result
 
-#CMD ["/usr/src/db/init_db.sh"]
 ENV empty_string="/usr/src/result/"
 ADD ./config_file.cnf /etc/mysql/conf.d/config_file.cnf
 
 ADD ./select_categories.sql /docker-entrypoint-initdb.d/
 
-#ADD ./wiki_sql_generator.py /usr/src/db/wiki_sql_generator.py
-
 EXPOSE 3306 3306
 ENV MYSQL_ROOT_PASSWORD=root
 ENV MYSQL_DATABASE=wikidump
-# create sql based on .sh
-#ADD init_db.sh /usr/src/db/init_db.sh
-
 
 CMD ["mysqld"]
